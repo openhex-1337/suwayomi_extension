@@ -1,0 +1,1 @@
+# suwayomi_extension
