@@ -1,9 +1,10 @@
 
 ![Manga Extension Converter](https://raw.githubusercontent.com/openhex-1337/suwayomi_extension/refs/heads/main/Manga%20Extension%20Converter.png)
+# 🔄 Manga Extension Converter | محول إضافات المانجا
 
 A lightweight web utility to convert manga extension repositories (`index.min.json`) between different formats (Mangayomi, Mihon, and Suwayomi).
 أداة ويب خفيفة لتحويل مستودعات إضافات المانجا بين الصيغ المختلفة (Mangayomi، Mihon، و Suwayomi).
-https://raw.githubusercontent.com/openhex-1337/suwayomi_extension/refs/heads/main/Manga%20Extension%20Converter.png
+
 
 ## ✨ Features | المميزات
 
