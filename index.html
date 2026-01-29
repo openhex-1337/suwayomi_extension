@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-i18n="app_title">Manga Extension Converter</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <div class="app-container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-top">
+                <div class="lang-switcher">
+                    <button class="lang-btn active" data-lang="en">EN</button>
+                    <button class="lang-btn" data-lang="fr">FR</button>
+                    <button class="lang-btn" data-lang="ar">عربي</button>
+                </div>
+            </div>
+
+            <div class="logo">
+                <span class="logo-icon">🔄</span>
+                <h1 data-i18n="app_title">Manga Extension Converter</h1>
+            </div>
+            <p class="subtitle" data-i18n="app_subtitle">Convert between Mangayomi • Mihon • Suwayomi</p>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Input Section -->
+            <section class="card input-section">
+                <h2 data-i18n="source_data">📥 Data Source</h2>
+
+                <div class="input-tabs">
+                    <button class="tab-btn active" data-tab="url-tab" data-i18n="url_tab">URL Link</button>
+                    <button class="tab-btn" data-tab="file-tab" data-i18n="file_tab">Upload File</button>
+                </div>
+
+                <div id="url-tab" class="tab-content active">
+                    <div class="form-group">
+                        <label for="url-input" data-i18n="enter_url">Enter index.min.json URL</label>
+                        <input type="url" id="url-input" placeholder="https://raw.githubusercontent.com/...">
+                    </div>
+
+                    <div class="quick-links">
+                        <p data-i18n="quick_links">Quick Links:</p>
+                        <button class="quick-btn"
+                            data-url="https://raw.githubusercontent.com/keiyoushi/extensions/repo/index.min.json">
+                            Keiyoushi (Mangayomi/Mihon)
+                        </button>
+                        <button class="quick-btn"
+                            data-url="https://raw.githubusercontent.com/suwayomi/tachiyomi-extension/repo/index.min.json">
+                            Suwayomi
+                        </button>
+                    </div>
+                </div>
+
+                <div id="file-tab" class="tab-content">
+                    <div class="file-upload">
+                        <input type="file" id="file-input" accept=".json">
+                        <label for="file-input" class="file-label">
+                            <span class="upload-icon">📁</span>
+                            <span data-i18n="drag_drop">Drag file here or click to select</span>
+                        </label>
+                        <p id="file-name" class="file-name"></p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Conversion Options -->
+            <section class="card conversion-section">
+                <h2 data-i18n="conversion_options">⚙️ Conversion Options</h2>
+
+                <div class="conversion-grid">
+                    <div class="form-group">
+                        <label for="source-format" data-i18n="source_format">Source Format</label>
+                        <select id="source-format">
+                            <option value="auto" data-i18n="auto_detect">Auto Detect</option>
+                            <option value="keiyoushi">Mangayomi / Mihon (Keiyoushi)</option>
+                            <option value="suwayomi">Suwayomi</option>
+                        </select>
+                    </div>
+
+                    <div class="arrow-icon">➡️</div>
+
+                    <div class="form-group">
+                        <label for="target-format" data-i18n="target_format">Target Format</label>
+                        <select id="target-format">
+                            <option value="mangayomi">Mangayomi</option>
+                            <option value="mihon">Mihon</option>
+                            <option value="suwayomi">Suwayomi</option>
+                        </select>
+                    </div>
+                </div>
+
+                <button id="convert-btn" class="convert-btn">
+                    <span class="btn-icon">🔄</span>
+                    <span data-i18n="convert_now">Convert Now</span>
+                </button>
+            </section>
+
+            <!-- Loading State -->
+            <div id="loading" class="loading hidden">
+                <div class="spinner"></div>
+                <p data-i18n="converting">Converting...</p>
+            </div>
+
+            <!-- Results Section -->
+            <section id="results" class="card results-section hidden">
+                <h2 data-i18n="result">📤 Result</h2>
+
+                <div class="stats">
+                    <div class="stat-item">
+                        <span class="stat-number" id="ext-count">0</span>
+                        <span class="stat-label" data-i18n="extension">Extension</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number" id="source-count">0</span>
+                        <span class="stat-label" data-i18n="source">Source</span>
+                    </div>
+                </div>
+
+                <div class="result-actions">
+                    <button id="download-btn" class="action-btn primary">
+                        <span>💾</span> <span data-i18n="download_json">Download JSON</span>
+                    </button>
+                    <button id="copy-btn" class="action-btn">
+                        <span>📋</span> <span data-i18n="copy">Copy</span>
+                    </button>
+                    <button id="preview-btn" class="action-btn">
+                        <span>👁️</span> <span data-i18n="preview">Preview</span>
+                    </button>
+                </div>
+
+                <div id="preview-area" class="preview-area hidden">
+                    <pre id="json-preview"></pre>
+                </div>
+            </section>
+
+            <!-- Error Message -->
+            <div id="error-message" class="error-message hidden">
+                <span class="error-icon">⚠️</span>
+                <p id="error-text"></p>
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p data-i18n="footer_text">Made with ❤️ for Manga lovers</p>
+        </footer>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+
+</html>
